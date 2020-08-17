@@ -180,11 +180,11 @@ var UIController = (() => {
             if(type === 'inc') {
                 element = DOMelements.incomeContainer;
 
-                html = '<div class="item clearfix" id="inc-%id%"><div class="item__description">%description%</div><div class="right clearfix"><div class="item__value">%value%</div><div class="item__delete"><button class="item__delete--btn"><i class="ion-ios-close-outline"></i></button></div></div></div>';
+                html = '<div class="item clearfix" id="inc-%id%"><div class="item__description">%description%</div><div class="right clearfix"><div class="item__value">%value%</div><div class="item__delete"><button class="item__delete--btn"><span>&#10005</span></button></div></div></div>';
             } else {
                 element = DOMelements.expensesContainer;
 
-                html = '<div class="item clearfix" id="exp-%id%"><div class="item__description">%description%</div><div class="right clearfix"><div class="item__value">%value%</div><div class="item__percentage">21%</div><div class="item__delete"><button class="item__delete--btn"><i class="ion-ios-close-outline"></i></button></div></div></div>';
+                html = '<div class="item clearfix" id="exp-%id%"><div class="item__description">%description%</div><div class="right clearfix"><div class="item__value">%value%</div><div class="item__percentage">21%</div><div class="item__delete"><button class="item__delete--btn"><span class="item__delete--btn__b">&#10005</span></button></div></div></div>';
             }
 
             newHtml = html.replace('%id%', obj.id);
@@ -220,9 +220,12 @@ var UIController = (() => {
             document.querySelector(DOMelements.budgetIncLabel).textContent = formatNumber(obj.totalInc, 'inc');
             document.querySelector(DOMelements.budgetExpLabel).textContent = formatNumber(obj.totalExp, 'exp');
 
-            if (obj.percentage > 0 ) {
+            if (obj.percentage > 0 && obj.percentage < 1000) {
                 document.querySelector(DOMelements.percentageLabel).textContent = obj.percentage + "%";
-            } else {
+            } else if (obj.percentage >= 1000) {
+                document.querySelector(DOMelements.percentageLabel).textContent = ">999%";
+            }
+            else {
                 document.querySelector(DOMelements.percentageLabel).textContent = "--";
             }
 
@@ -240,9 +243,12 @@ var UIController = (() => {
 
             nodeListForEach(fields, (current, index) => {
 
-                if (percentages[index] > 0) {
+                if (percentages[index] > 0 && percentages[index] < 1000) {
                     current.textContent = percentages[index] + "%";
-                } else {
+                } else if (percentages[index] >= 1000) {
+                    current.textContent = '>999%';
+                } 
+                else {
                     current.textContent = '--';
                 }
             });
