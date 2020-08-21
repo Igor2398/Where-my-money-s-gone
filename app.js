@@ -144,8 +144,8 @@ const UIController = (() => {
         dataLabel: '.budget__title--month'
     };
 
-    const formatNumber = (num, type) => {
-        var num, numSplit, int, dec, type;
+    const formatNumber = (n=um, type) => {
+        let numSplit, int, dec;
         num = Math.abs(num);
         num = num.toFixed(2);
         
